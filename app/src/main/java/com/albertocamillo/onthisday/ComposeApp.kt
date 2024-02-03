@@ -14,10 +14,7 @@ fun ComposeApp() {
         startDestination = Route.SELECTED_EVENTS
     ) {
         composable(Route.SELECTED_EVENTS) {
-            SelectedEventsScreen(
-                onUserClick = {
-                }
-            )
+            SelectedEventsScreen()
         }
     }
 }
