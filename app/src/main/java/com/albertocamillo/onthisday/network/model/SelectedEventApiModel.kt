@@ -8,7 +8,8 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class SelectedEventApiModel(
     @Json(name = "text") val text: String,
-    @Json(name = "year") val year: Int
+    @Json(name = "year") val year: Int,
+    @Json(name = "pages") val pages: List<PageApiModel>,
 )
 
 fun List<SelectedEventApiModel>.asDatabaseModel(): List<SelectedEventEntity> {

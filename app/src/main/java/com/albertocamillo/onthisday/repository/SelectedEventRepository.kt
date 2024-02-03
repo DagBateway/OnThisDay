@@ -22,6 +22,10 @@ class SelectedEventRepository @Inject constructor(
         try {
             val selectedEventsList = selectedEventApi.getSelectedEventsList(month, day)
             appDatabase.selectedEventsDao.insertSelectedEvents(selectedEventsList.selectedEvents.asDatabaseModel())
+            for (event in selectedEventsList.selectedEvents) {
+                appDatabase.selectedEventsDao.insertPages(event.pages.asDatabaseModel())
+            }
+
         } catch (e: Exception) {
             Timber.w(e)
         }

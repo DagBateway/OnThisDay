@@ -15,9 +15,15 @@ interface SelectedEventDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSelectedEvents(selectedEvents: List<SelectedEventEntity>)
+
+    @Query("select * from PageEntity")
+    fun getPages(): Flow<List<PageEntity>?>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPages(pages: List<PageEntity>)
 }
 
-@Database(entities = [SelectedEventEntity::class], version = 1)
+@Database(entities = [SelectedEventEntity::class, PageEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract val selectedEventsDao: SelectedEventDao
 }

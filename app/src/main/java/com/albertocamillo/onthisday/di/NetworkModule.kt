@@ -42,5 +42,4 @@ object NetworkModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): SelectedEventsApi =
         retrofit.create(SelectedEventsApi::class.java)
-
 }

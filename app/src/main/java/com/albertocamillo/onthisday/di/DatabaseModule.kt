@@ -29,5 +29,4 @@ object DatabaseModule {
     fun provideChannelDao(appDatabase: AppDatabase): SelectedEventDao {
         return appDatabase.selectedEventsDao
     }
-
 }
