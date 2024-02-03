@@ -9,6 +9,7 @@ data class PageEntity(
     @PrimaryKey
     val id: String,
     val displayTitle: String,
+    val selectedEventId: String
 )
 
 fun List<PageEntity>.asDomainModel(): List<Page> {

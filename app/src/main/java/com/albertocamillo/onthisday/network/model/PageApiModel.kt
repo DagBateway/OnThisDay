@@ -10,9 +10,10 @@ data class PageApiModel(
     @Json(name = "displaytitle") val displayTitle: String,
 )
 
-fun List<PageApiModel>.asDatabaseModel(): List<PageEntity> {
+fun List<PageApiModel>.asDatabaseModel(selectedEventId: String): List<PageEntity> {
     return map {
         PageEntity(
+            selectedEventId = selectedEventId,
             id = it.id,
             displayTitle = it.displayTitle
         )
