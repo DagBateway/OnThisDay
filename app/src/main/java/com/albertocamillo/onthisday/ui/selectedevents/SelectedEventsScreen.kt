@@ -1,6 +1,7 @@
 package com.albertocamillo.onthisday.ui.theme.selectedevents
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +27,7 @@ import java.time.LocalDate
 
 @Composable
 fun SelectedEventsScreen(
+    onSelectedEventClick: (String) -> Unit
 ) {
     val viewModel = hiltViewModel<SelectedEventsViewModel>()
     val uiState = viewModel.uiState
@@ -41,7 +43,7 @@ fun SelectedEventsScreen(
                     .background(MaterialTheme.colorScheme.background)
             ) {
                 items(uiState.list) { item ->
-                    SelectedEventItem(item = item)
+                    SelectedEventItem(item = item, onSelectedEventClick = onSelectedEventClick)
                 }
             }
         }
@@ -49,13 +51,15 @@ fun SelectedEventsScreen(
 }
 
 @Composable
-fun SelectedEventItem(item: SelectedEvent) {
+fun SelectedEventItem(item: SelectedEvent, onSelectedEventClick: (String) -> Unit) {
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         ),
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier
+            .padding(16.dp)
+            .clickable { onSelectedEventClick(item.id) },
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
