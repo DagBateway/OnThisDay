@@ -14,15 +14,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
-import androidx.core.text.HtmlCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.albertocamillo.onthisday.domain.Page
 import com.albertocamillo.onthisday.ui.theme.components.NoNetwork
 
 @Composable
 fun DetailsScreen() {
     val viewModel = hiltViewModel<DetailsViewModel>()
     val uiState = viewModel.uiState
+    val uriHandler = LocalUriHandler.current
 
     if (uiState.offline) {
         NoNetwork()
@@ -35,7 +37,9 @@ fun DetailsScreen() {
                     .background(MaterialTheme.colorScheme.background)
             ) {
                 items(uiState.pages) { page ->
-                    PageItem(page.displayTitle, onPageClick = {})
+                    PageItem(page, onPageClick = { desktopUrl ->
+                        uriHandler.openUri(desktopUrl)
+                    })
                 }
             }
         }
@@ -43,7 +47,7 @@ fun DetailsScreen() {
 }
 
 @Composable
-fun PageItem(htmlTitle: String, onPageClick: (String) -> Unit) {
+fun PageItem(page: Page, onPageClick: (String) -> Unit) {
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(
@@ -52,12 +56,11 @@ fun PageItem(htmlTitle: String, onPageClick: (String) -> Unit) {
         modifier = Modifier
             .padding(16.dp)
             .fillMaxSize()
-            .clickable { onPageClick(htmlTitle) },
+            .clickable { onPageClick(page.desktopPageUrl) },
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = HtmlCompat.fromHtml(htmlTitle, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    .toString(),
+                text = page.normalizedTitle,
                 color = MaterialTheme.colorScheme.onBackground
             )
         }

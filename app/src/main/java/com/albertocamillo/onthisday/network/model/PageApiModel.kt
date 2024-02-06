@@ -7,7 +7,10 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class PageApiModel(
     @Json(name = "pageid") val id: String,
+    @Json(name = "normalizedtitle") val normalizedTitle: String,
     @Json(name = "displaytitle") val displayTitle: String,
+    @Json(name = "content_urls") val contentUrl: ContentUrlApiModel,
+    @Json(name = "thumbnail") val thumbnailSourceUrl: ThumbnailSourceUrlApiModel,
 )
 
 fun List<PageApiModel>.asDatabaseModel(selectedEventId: String): List<PageEntity> {
@@ -15,7 +18,10 @@ fun List<PageApiModel>.asDatabaseModel(selectedEventId: String): List<PageEntity
         PageEntity(
             selectedEventId = selectedEventId,
             id = it.id,
-            displayTitle = it.displayTitle
+            displayTitle = it.displayTitle,
+            normalizedTitle = it.normalizedTitle,
+            thumbnailSource = it.thumbnailSourceUrl.source,
+            desktopPageUrl = it.contentUrl.desktop.pageUrl
         )
     }
 }
