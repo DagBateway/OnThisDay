@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SelectedEventDao {
-    @Query("select * from SelectedEventEntity")
-    fun getSelectedEvents(): Flow<List<SelectedEventEntity>?>
+    @Query("select * from SelectedEventEntity where month = :month and day = :day")
+    fun getSelectedEvents(month: Int, day: Int): Flow<List<SelectedEventEntity>?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSelectedEvents(selectedEvents: List<SelectedEventEntity>)
@@ -21,6 +21,9 @@ interface SelectedEventDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPages(pages: List<PageEntity>)
+
+    @Query("select * from PageEntity where selectedEventId = :selectedEventId")
+    fun getPagesBySelectedEventId(selectedEventId: String): Flow<List<PageEntity>?>
 }
 
 @Database(entities = [SelectedEventEntity::class, PageEntity::class], version = 1)

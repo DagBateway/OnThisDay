@@ -7,8 +7,8 @@ interface SelectedEventsApi {
 
     @GET("/feed/v1/wikipedia/en/onthisday/selected/{month}/{day}")
     suspend fun getSelectedEventsList(
-        @Path("month") month: String,
-        @Path("day") day: String
+        @Path("month") month: Int,
+        @Path("day") day: Int
     ): SelectedEventsListApiModel
 
 }

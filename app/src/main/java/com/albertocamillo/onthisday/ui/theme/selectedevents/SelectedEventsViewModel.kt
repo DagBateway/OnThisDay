@@ -10,7 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,11 +22,7 @@ class SelectedEventsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val current = LocalDate.now()
-            selectedEventRepository.refreshSelectedEvents(
-                current.month.value.toString(),
-                current.dayOfMonth.toString()
-            )
+            selectedEventRepository.refreshSelectedEvents()
             selectedEventRepository.selectedEvents.collect { list ->
                 withContext(Dispatchers.Main) {
                     uiState = if (list.isNullOrEmpty()) {

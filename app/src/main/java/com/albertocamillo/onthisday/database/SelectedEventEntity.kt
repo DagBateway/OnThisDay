@@ -11,6 +11,8 @@ data class SelectedEventEntity(
     val id: String,
     val text: String,
     val year: Int,
+    val month: Int,
+    val day: Int
 )
 
 fun List<SelectedEventEntity>.asDomainModel(): List<SelectedEvent> {
@@ -19,7 +21,8 @@ fun List<SelectedEventEntity>.asDomainModel(): List<SelectedEvent> {
             id = generateUniqueID(it.year.toString(), it.text),
             text = it.text,
             year = it.year,
-
-            )
+            month = it.month,
+            day = it.day
+        )
     }
 }

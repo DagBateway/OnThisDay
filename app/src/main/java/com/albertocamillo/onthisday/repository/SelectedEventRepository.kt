@@ -9,20 +9,30 @@ import com.albertocamillo.onthisday.utils.generateUniqueID
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
+import java.time.LocalDate
 import javax.inject.Inject
 
 class SelectedEventRepository @Inject constructor(
     private val selectedEventApi: SelectedEventsApi,
     private val appDatabase: AppDatabase
 ) {
-
+    private val current: LocalDate = LocalDate.now()
+    private val month = current.month.value
+    private val day = current.dayOfMonth
     val selectedEvents: Flow<List<SelectedEvent>?> =
-        appDatabase.selectedEventsDao.getSelectedEvents().map { it?.asDomainModel() }
+        appDatabase.selectedEventsDao.getSelectedEvents(month, day).map {
+            it?.asDomainModel()
+        }
 
-    suspend fun refreshSelectedEvents(month: String, day: String) {
+    suspend fun refreshSelectedEvents() {
         try {
             val selectedEventsList = selectedEventApi.getSelectedEventsList(month, day)
-            appDatabase.selectedEventsDao.insertSelectedEvents(selectedEventsList.selectedEvents.asDatabaseModel())
+            appDatabase.selectedEventsDao.insertSelectedEvents(
+                selectedEventsList.selectedEvents.asDatabaseModel(
+                    month,
+                    day
+                )
+            )
             for (event in selectedEventsList.selectedEvents) {
                 appDatabase.selectedEventsDao.insertPages(
                     event.pages.asDatabaseModel(

@@ -12,12 +12,17 @@ data class SelectedEventApiModel(
     @Json(name = "pages") val pages: List<PageApiModel>,
 )
 
-fun List<SelectedEventApiModel>.asDatabaseModel(): List<SelectedEventEntity> {
+fun List<SelectedEventApiModel>.asDatabaseModel(
+    month: Int,
+    day: Int
+): List<SelectedEventEntity> {
     return map {
         SelectedEventEntity(
             id = generateUniqueID(it.year.toString(), it.text),
             text = it.text,
-            year = it.year
+            year = it.year,
+            month = month,
+            day = day
         )
     }
 }
