@@ -43,7 +43,7 @@ fun SelectedEventsScreen(
                     .background(MaterialTheme.colorScheme.background)
             ) {
                 items(uiState.list) { item ->
-                    SelectedEventItem(item = item, onSelectedEventClick = onSelectedEventClick)
+                    SelectedEventItem(selectedEvent = item, onSelectedEventClick = onSelectedEventClick)
                 }
             }
         }
@@ -51,24 +51,25 @@ fun SelectedEventsScreen(
 }
 
 @Composable
-fun SelectedEventItem(item: SelectedEvent, onSelectedEventClick: (String) -> Unit) {
+fun SelectedEventItem(selectedEvent: SelectedEvent, onSelectedEventClick: (String) -> Unit) {
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         ),
         modifier = Modifier
+            .fillMaxSize()
             .padding(16.dp)
-            .clickable { onSelectedEventClick(item.id) },
+            .clickable { onSelectedEventClick(selectedEvent.id) },
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = item.year.toString(),
+                text = selectedEvent.year.toString(),
                 color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 30.sp,
             )
             Text(
-                text = item.text,
+                text = selectedEvent.text,
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
