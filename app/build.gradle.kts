@@ -71,7 +71,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     //==================== Dependency Injection ====================
-    val hiltVersion = "2.48"
+    val hiltVersion = "2.50"
     ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
@@ -103,4 +103,7 @@ dependencies {
 
     //==================== Memory Leak Detection ====================
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
+
+    //==================== Image Loading ====================
+    implementation("io.coil-kt:coil-compose:2.5.0")
 }

@@ -11,7 +11,7 @@ data class PageEntity(
     val displayTitle: String,
     val normalizedTitle: String,
     val selectedEventId: String,
-    val thumbnailSource: String,
+    val thumbnailSource: String?,
     val desktopPageUrl: String
 )
 

@@ -13,5 +13,7 @@ class PagesRepository @Inject constructor(
 
     fun getPages(selectedEventId: String): Flow<List<Page>?> =
         appDatabase.selectedEventsDao.getPagesBySelectedEventId(selectedEventId)
-            .map { it?.asDomainModel() }
+            .map {
+                it?.asDomainModel()
+            }
 }
