@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,23 +14,26 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.albertocamillo.onthisday.R
 import com.albertocamillo.onthisday.ui.theme.components.NoNetwork
+import com.albertocamillo.onthisday.ui.theme.selectedevents.CardTitle
 
 @Composable
-fun DetailsScreen() {
+fun DetailsScreen(onPageClick: (String) -> Unit) {
     val viewModel = hiltViewModel<DetailsViewModel>()
     val uiState = viewModel.uiState
-    val uriHandler = LocalUriHandler.current
 
     if (uiState.offline) {
         NoNetwork()
     } else {
 
         Column {
+            CardTitle("Related Pages")
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -46,18 +48,20 @@ fun DetailsScreen() {
                         modifier = Modifier
                             .padding(16.dp)
                             .fillMaxSize()
-                            .clickable { page.desktopPageUrl },
+                            .clickable { onPageClick(page.desktopPageUrl) },
                     ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
+                        Column {
                             page.thumbnailUrl?.let {
                                 AsyncImage(
-                                    modifier = Modifier.size(100.dp),
+                                    placeholder = painterResource(R.drawable.image_missing),
+                                    modifier = Modifier.fillMaxSize(),
                                     model = it,
-                                    contentDescription = null
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop
                                 )
                             }
-
                             Text(
+                                modifier = Modifier.padding(16.dp),
                                 text = page.normalizedTitle,
                                 color = MaterialTheme.colorScheme.onBackground
                             )

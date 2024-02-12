@@ -1,6 +1,7 @@
 package com.albertocamillo.onthisday
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,6 +14,8 @@ import com.albertocamillo.onthisday.ui.theme.selectedevents.SelectedEventsScreen
 @Composable
 fun ComposeApp() {
     val navController = rememberNavController()
+    val uriHandler = LocalUriHandler.current
+
     NavHost(
         navController = navController,
         startDestination = Route.SELECTED_EVENTS
@@ -34,7 +37,9 @@ fun ComposeApp() {
                 }
             ),
         ) {
-            DetailsScreen()
+            DetailsScreen(onPageClick = { pageUrl ->
+                uriHandler.openUri(pageUrl)
+            })
         }
     }
 }
