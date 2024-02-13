@@ -30,6 +30,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            isPseudoLocalesEnabled = true
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

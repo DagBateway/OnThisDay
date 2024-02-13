@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.albertocamillo.onthisday.ui.details.DetailsScreen
-import com.albertocamillo.onthisday.ui.theme.selectedevents.SelectedEventsScreen
+import com.albertocamillo.onthisday.ui.selectedevents.SelectedEventsScreen
 
 @Composable
 fun ComposeApp() {

@@ -1,4 +1,4 @@
-package com.albertocamillo.onthisday.ui.theme.selectedevents
+package com.albertocamillo.onthisday.ui.selectedevents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.albertocamillo.onthisday.domain.SelectedEvent
+import com.albertocamillo.onthisday.ui.selectedevents.SelectedEventsViewModel
 import com.albertocamillo.onthisday.ui.theme.components.NoNetwork
 import java.time.LocalDate
 
@@ -43,7 +44,10 @@ fun SelectedEventsScreen(
                     .background(MaterialTheme.colorScheme.background)
             ) {
                 items(uiState.list) { item ->
-                    SelectedEventItem(selectedEvent = item, onSelectedEventClick = onSelectedEventClick)
+                    SelectedEventItem(
+                        selectedEvent = item,
+                        onSelectedEventClick = onSelectedEventClick
+                    )
                 }
             }
         }

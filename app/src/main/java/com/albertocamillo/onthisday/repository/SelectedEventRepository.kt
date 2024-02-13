@@ -3,6 +3,7 @@ package com.albertocamillo.onthisday.repository
 import com.albertocamillo.onthisday.database.AppDatabase
 import com.albertocamillo.onthisday.database.asDomainModel
 import com.albertocamillo.onthisday.domain.SelectedEvent
+import com.albertocamillo.onthisday.domain.getLanguage
 import com.albertocamillo.onthisday.network.model.SelectedEventsApi
 import com.albertocamillo.onthisday.network.model.asDatabaseModel
 import com.albertocamillo.onthisday.utils.generateUniqueID
@@ -10,15 +11,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import java.time.LocalDate
+import java.util.Locale
 import javax.inject.Inject
 
 class SelectedEventRepository @Inject constructor(
     private val selectedEventApi: SelectedEventsApi,
     private val appDatabase: AppDatabase
 ) {
-    private val current: LocalDate = LocalDate.now()
-    private val month = current.month.value
-    private val day = current.dayOfMonth
+    private val currentLanguage: String = Locale.getDefault().language
+    private val currentDate: LocalDate = LocalDate.now()
+    private val month = currentDate.month.value
+    private val day = currentDate.dayOfMonth
     val selectedEvents: Flow<List<SelectedEvent>?> =
         appDatabase.selectedEventsDao.getSelectedEvents(month, day).map {
             it?.asDomainModel()
@@ -26,7 +29,8 @@ class SelectedEventRepository @Inject constructor(
 
     suspend fun refreshSelectedEvents() {
         try {
-            val selectedEventsList = selectedEventApi.getSelectedEventsList(month, day)
+            val selectedEventsList =
+                selectedEventApi.getSelectedEventsList(getLanguage(currentLanguage), month, day)
             appDatabase.selectedEventsDao.insertSelectedEvents(
                 selectedEventsList.selectedEvents.asDatabaseModel(
                     month,

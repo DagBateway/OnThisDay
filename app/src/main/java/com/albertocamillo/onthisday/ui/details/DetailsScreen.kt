@@ -21,7 +21,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.albertocamillo.onthisday.R
 import com.albertocamillo.onthisday.ui.theme.components.NoNetwork
-import com.albertocamillo.onthisday.ui.theme.selectedevents.CardTitle
+import com.albertocamillo.onthisday.ui.selectedevents.CardTitle
+import java.util.Locale
 
 @Composable
 fun DetailsScreen(onPageClick: (String) -> Unit) {

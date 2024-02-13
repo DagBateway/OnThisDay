@@ -1,4 +1,4 @@
-package com.albertocamillo.onthisday.ui.theme.selectedevents
+package com.albertocamillo.onthisday.ui.selectedevents
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
