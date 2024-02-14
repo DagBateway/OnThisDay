@@ -97,7 +97,7 @@ fun SelectedEventItem(selectedEvent: SelectedEvent, onSelectedEventClick: (Strin
                     .fillMaxSize()
                     .padding(8.dp)
                     .wrapContentWidth(align = Alignment.CenterHorizontally),
-                text = "Read more...",
+                text = stringResource(R.string.read_more),
                 textAlign = TextAlign.Center,
                 fontSize = 12.sp,
                 color = MaterialTheme.colorScheme.onBackground
