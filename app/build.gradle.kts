@@ -109,4 +109,7 @@ dependencies {
 
     //==================== Image Loading ====================
     implementation("io.coil-kt:coil-compose:2.5.0")
+
+    //==================== Lottie ====================
+    implementation("com.airbnb.android:lottie-compose:6.3.0")
 }
