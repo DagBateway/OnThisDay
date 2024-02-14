@@ -1,4 +1,4 @@
-package com.albertocamillo.onthisday.ui.theme.components
+package com.albertocamillo.onthisday.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

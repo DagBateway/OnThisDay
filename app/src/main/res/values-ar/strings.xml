@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">في هذا اليوم</string>
+    <string name="please_check_network_connection">يرجى التحقق من اتصال الشبكة الخاصة بك</string>
+    <string name="on_this_day">في هذا اليوم</string>
+    <string name="related_pages">الصفحات ذات الصلة</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Na ovaj dan</string>
+    <string name="please_check_network_connection">Provjerite svoju mrežnu vezu</string>
+    <string name="on_this_day">Na ovaj dan</string>
+    <string name="related_pages">Povezane stranice</string>
+</resources>

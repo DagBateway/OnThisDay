@@ -17,13 +17,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.albertocamillo.onthisday.R
 import com.albertocamillo.onthisday.domain.SelectedEvent
-import com.albertocamillo.onthisday.ui.selectedevents.SelectedEventsViewModel
-import com.albertocamillo.onthisday.ui.theme.components.NoNetwork
+import com.albertocamillo.onthisday.ui.components.NoNetwork
 import java.time.LocalDate
 
 @Composable
@@ -37,7 +38,7 @@ fun SelectedEventsScreen(
         NoNetwork()
     } else {
         Column {
-            CardTitle("On this day, ${current.dayOfMonth}/${current.month.value}")
+            CardTitle(stringResource(id = R.string.on_this_day) + ", ${current.dayOfMonth}/${current.month.value}")
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Neste dia</string>
+    <string name="please_check_network_connection">Verifique sua conexão de rede</string>
+    <string name="on_this_day">Neste dia</string>
+    <string name="related_pages">Páginas relacionadas</string>
+</resources>

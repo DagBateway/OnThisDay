@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">På denna dag</string>
+    <string name="please_check_network_connection">Kontrollera din nätverksanslutning</string>
+    <string name="on_this_day">På denna dag</string>
+    <string name="related_pages">Relaterade sidor</string>
+</resources>
