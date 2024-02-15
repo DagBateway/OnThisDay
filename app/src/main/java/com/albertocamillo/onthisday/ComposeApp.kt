@@ -27,7 +27,9 @@ fun ComposeApp() {
                     if (backStackEntry.getLifecycle().currentState == Lifecycle.State.RESUMED) {
                         navController.navigate("${Route.DETAILS}/$selectedEventId")
                     }
-                })
+                },
+                onBackClick = {}
+            )
         }
         composable(
             route = "${Route.DETAILS}/{${Argument.SELECTED_EVENT_ID}}",
@@ -36,10 +38,16 @@ fun ComposeApp() {
                     type = NavType.StringType
                 }
             ),
-        ) {
-            DetailsScreen(onPageClick = { pageUrl ->
-                uriHandler.openUri(pageUrl)
-            })
+        ) { backStackEntry ->
+            DetailsScreen(
+                onPageClick = { pageUrl -> uriHandler.openUri(pageUrl) },
+                onBackClick = { goingBack ->
+                    if (goingBack) {
+                        if (backStackEntry.getLifecycle().currentState == Lifecycle.State.RESUMED) {
+                            navController.navigateUp()
+                        }
+                    }
+                })
         }
     }
 }

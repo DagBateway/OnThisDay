@@ -27,13 +27,14 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.albertocamillo.onthisday.R
 import com.albertocamillo.onthisday.domain.SelectedEvent
+import com.albertocamillo.onthisday.ui.components.CenterAligned
 import com.albertocamillo.onthisday.ui.components.NoNetwork
 import com.albertocamillo.onthisday.utils.LoadingLottieAnimation
 import java.time.LocalDate
 
 @Composable
 fun SelectedEventsScreen(
-    onSelectedEventClick: (String) -> Unit
+    onSelectedEventClick: (String) -> Unit, onBackClick: (Boolean) -> Unit
 ) {
     val viewModel = hiltViewModel<SelectedEventsViewModel>()
     val uiState = viewModel.uiState
@@ -42,7 +43,10 @@ fun SelectedEventsScreen(
         NoNetwork()
     } else {
         Column {
-            CardTitle(stringResource(id = R.string.on_this_day) + ", ${current.dayOfMonth}/${current.month.value}")
+            CenterAligned(
+                stringResource(id = R.string.on_this_day) + ", ${current.dayOfMonth}/${current.month.value}",
+                onBackClick = onBackClick
+            )
             if (uiState.list.isEmpty()) {
                 Box(
                     modifier = Modifier
