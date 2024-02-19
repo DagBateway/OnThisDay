@@ -47,29 +47,33 @@ fun SelectedEventsScreen(
                 stringResource(id = R.string.on_this_day) + ", ${current.dayOfMonth}/${current.month.value}",
                 onBackClick = onBackClick
             )
-            if (uiState.list.isEmpty()) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = Color.White)
-                ) {
-                    LoadingLottieAnimation(modifier = Modifier.align(alignment = Alignment.Center))
+            LoadingAnimation(uiState.list.isEmpty())
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+            ) {
+                items(uiState.list) { item ->
+                    SelectedEventItem(
+                        selectedEvent = item,
+                        onSelectedEventClick = onSelectedEventClick
+                    )
                 }
-            } else {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
-                ) {
-                    items(uiState.list) { item ->
-                        SelectedEventItem(
-                            selectedEvent = item,
-                            onSelectedEventClick = onSelectedEventClick
-                        )
-                    }
 
-                }
             }
+        }
+    }
+}
+
+@Composable
+fun LoadingAnimation(isVisible: Boolean) {
+    if (isVisible) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.White)
+        ) {
+            LoadingLottieAnimation(modifier = Modifier.align(alignment = Alignment.Center))
         }
     }
 }
