@@ -1,6 +1,5 @@
 package com.albertocamillo.onthisday.utils
 
-import okhttp3.internal.and
 import java.security.MessageDigest
 
 fun generateUniqueID(string1: String, string2: String): String {
@@ -13,7 +12,7 @@ fun generateUniqueID(string1: String, string2: String): String {
     val hexString = StringBuilder()
     for (byte in hashBytes) {
         // Convert byte to two hexadecimal characters
-        val hex = (byte and 0xFF.toByte().toInt()).toString(16)
+        val hex = (byte.toInt() and 0xFF).toString(16)
         if (hex.length == 1) {
             hexString.append('0') // Pad single digit with a leading zero
         }
