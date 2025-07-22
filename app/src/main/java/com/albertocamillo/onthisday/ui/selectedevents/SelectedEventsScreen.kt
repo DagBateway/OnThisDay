@@ -32,22 +32,38 @@ import com.albertocamillo.onthisday.ui.components.NoNetwork
 import com.albertocamillo.onthisday.utils.LoadingLottieAnimation
 import java.time.LocalDate
 
+/**
+ * Main screen that displays a list of historical events for the current date.
+ *
+ * If data is not available (likely due to lack of internet), it shows a fallback offline message.
+ * While the data is being loaded, it shows a Lottie animation.
+ * Once loaded, it displays each event in a scrollable list.
+ *
+ * @param onSelectedEventClick Callback when a user taps an event card.
+ * @param onBackClick Callback for the back navigation (not used in this screen).
+ */
 @Composable
 fun SelectedEventsScreen(
-    onSelectedEventClick: (String) -> Unit, onBackClick: (Boolean) -> Unit
+    onSelectedEventClick: (String) -> Unit,
+    onBackClick: (Boolean) -> Unit
 ) {
     val viewModel = hiltViewModel<SelectedEventsViewModel>()
     val uiState = viewModel.uiState
     val current = LocalDate.now()
+
     if (uiState.offline) {
         NoNetwork()
     } else {
         Column {
+            // Top bar with date and back button
             CenterAligned(
                 stringResource(id = R.string.on_this_day) + ", ${current.dayOfMonth}/${current.month.value}",
                 onBackClick = onBackClick
             )
+            // Shows loader while data is being fetched
             LoadingAnimation(uiState.list.isEmpty())
+
+            // List of selected events
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -59,12 +75,14 @@ fun SelectedEventsScreen(
                         onSelectedEventClick = onSelectedEventClick
                     )
                 }
-
             }
         }
     }
 }
 
+/**
+ * Displays a centered loading animation when data is being fetched.
+ */
 @Composable
 fun LoadingAnimation(isVisible: Boolean) {
     if (isVisible) {
@@ -78,13 +96,17 @@ fun LoadingAnimation(isVisible: Boolean) {
     }
 }
 
+/**
+ * A single card item displaying an event's year and description.
+ *
+ * @param selectedEvent Event to show.
+ * @param onSelectedEventClick Triggered when the card is clicked.
+ */
 @Composable
 fun SelectedEventItem(selectedEvent: SelectedEvent, onSelectedEventClick: (String) -> Unit) {
     Card(
         shape = RoundedCornerShape(20.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp
-        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
@@ -114,6 +136,9 @@ fun SelectedEventItem(selectedEvent: SelectedEvent, onSelectedEventClick: (Strin
     }
 }
 
+/**
+ * Small helper composable for previewing card titles (not used in production).
+ */
 @Composable
 fun CardTitle(title: String) {
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {

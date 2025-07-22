@@ -24,34 +24,45 @@ import com.albertocamillo.onthisday.R
 import com.albertocamillo.onthisday.ui.components.CenterAligned
 import com.albertocamillo.onthisday.ui.components.NoNetwork
 
+/**
+ * Composable for displaying a list of related Wikipedia pages for a selected historical event.
+ *
+ * This screen is accessed after the user selects an event on the main screen.
+ * It shows a list of pages (with optional thumbnails), and tapping an item opens the corresponding Wikipedia link.
+ *
+ * @param onPageClick Callback when a user clicks a page card (passes URL to open).
+ * @param onBackClick Callback for handling back navigation.
+ */
 @Composable
 fun DetailsScreen(onPageClick: (String) -> Unit, onBackClick: (Boolean) -> Unit) {
     val viewModel = hiltViewModel<DetailsViewModel>()
     val uiState = viewModel.uiState
 
     if (uiState.offline) {
+        // Show offline message or animation
         NoNetwork()
     } else {
-
         Column {
+            // Top bar with title and back button
             CenterAligned(stringResource(id = R.string.related_pages), true, onBackClick)
+
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
             ) {
+                // Display each Wikipedia page in a card
                 items(uiState.pages) { page ->
                     Card(
                         shape = RoundedCornerShape(20.dp),
-                        elevation = CardDefaults.cardElevation(
-                            defaultElevation = 10.dp
-                        ),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
                         modifier = Modifier
                             .padding(16.dp)
                             .fillMaxSize()
                             .clickable { onPageClick(page.desktopPageUrl) },
                     ) {
                         Column {
+                            // Show thumbnail image if available
                             page.thumbnailUrl?.let {
                                 AsyncImage(
                                     placeholder = painterResource(R.drawable.image_missing),
@@ -61,6 +72,7 @@ fun DetailsScreen(onPageClick: (String) -> Unit, onBackClick: (Boolean) -> Unit)
                                     contentScale = ContentScale.Crop
                                 )
                             }
+                            // Page title
                             Text(
                                 modifier = Modifier.padding(16.dp),
                                 text = page.normalizedTitle,
