@@ -78,6 +78,16 @@ The app follows a **unidirectional data flow** using MVI principles:
     - **Network**: Retrofit + Moshi for API calls
     - **Persistence**: Room database for event and page storage
 
+### Visual Flow:
+
+```
+[User Action]
+     ↓
+[Intent] ──▶ [ViewModel] ──▶ [State] ──▶ [View]
+                             ▲          │
+                             └──────────┘
+```
+
 ---
 
 ## 🔌 API Integration
