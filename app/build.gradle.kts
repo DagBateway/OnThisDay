@@ -13,9 +13,9 @@ android {
     defaultConfig {
         applicationId = "com.albertocamillo.onthisday"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 9
-        versionName = "3.1"
+        targetSdk = 35
+        versionCode = 10
+        versionName = "3.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -115,4 +115,7 @@ dependencies {
 
     //==================== Lottie ====================
     implementation("com.airbnb.android:lottie-compose:6.6.7")
+
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.36.0")
+
 }

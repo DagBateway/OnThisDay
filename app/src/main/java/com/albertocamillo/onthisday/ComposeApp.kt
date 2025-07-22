@@ -1,6 +1,8 @@
 package com.albertocamillo.onthisday
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavType
@@ -10,9 +12,18 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.albertocamillo.onthisday.ui.details.DetailsScreen
 import com.albertocamillo.onthisday.ui.selectedevents.SelectedEventsScreen
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun ComposeApp() {
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setSystemBarsColor(
+            color = Color.White,
+            darkIcons = true
+        )
+    }
+
     val navController = rememberNavController()
     val uriHandler = LocalUriHandler.current
 
@@ -23,7 +34,6 @@ fun ComposeApp() {
         composable(Route.SELECTED_EVENTS) { backStackEntry ->
             SelectedEventsScreen(
                 onSelectedEventClick = { selectedEventId ->
-                    // In order to discard duplicated navigation events, we check the Lifecycle
                     if (backStackEntry.getLifecycle().currentState == Lifecycle.State.RESUMED) {
                         navController.navigate("${Route.DETAILS}/$selectedEventId")
                     }
@@ -47,7 +57,8 @@ fun ComposeApp() {
                             navController.navigateUp()
                         }
                     }
-                })
+                }
+            )
         }
     }
 }
