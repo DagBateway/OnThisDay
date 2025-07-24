@@ -28,15 +28,16 @@ an elegant, offline-resilient interface.
 
 The app detects the current device language and requests content accordingly.
 
+- Arabic (`ar`)
+- Bosnian (`bs`)
 - English (`en`)
-- German (`de`)
 - French (`fr`)
-- Swedish (`sv`)
+- German (`de`)
+- Italian (`it`)
 - Portuguese (`pt`)
 - Russian (`ru`)
 - Spanish (`es`)
-- Arabic (`ar`)
-- Bosnian (`bs`)
+- Swedish (`sv`)
 
 ---
 

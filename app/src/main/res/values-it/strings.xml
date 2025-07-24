@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">On This Day</string>
+    <string name="on_this_day">Accadde Oggi</string>
+    <string name="please_check_network_connection">Per favore, controlla la tua connessione.</string>
+    <string name="related_pages">Pagine Correlate</string>
+    <string name="read_more">Per saperne di più&#8230;</string>
+</resources>
